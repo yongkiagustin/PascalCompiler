@@ -5,6 +5,7 @@
  */
 package javaapplication30;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -46,6 +47,9 @@ public class NewJFrame extends javax.swing.JFrame {
         ta_outputOp = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         bt_clear = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        ta_outputidentifier = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +87,13 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        ta_outputidentifier.setEditable(false);
+        ta_outputidentifier.setColumns(20);
+        ta_outputidentifier.setRows(5);
+        jScrollPane4.setViewportView(ta_outputidentifier);
+
+        jLabel4.setText("Operator");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,7 +123,10 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane4))))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -125,10 +139,15 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bt_clear, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(bt_scan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -153,70 +172,52 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public String penampungTextOperator = "";
+    public String penampungTextIdentifier = "";
 //variable = diluar identifier & operator
-    private void countOperator() {
+
+    private void CountOperator() {
         String inputText = ta_inputText.getText();
-        
-        //hitung semicolon
-        String semicolon = ";";
-        int count1 = 0, fromIndex1 = 0;
-        while ((fromIndex1 = inputText.indexOf(semicolon, fromIndex1)) != -1) {
-            count1++;
-            fromIndex1++;
+        //hitung operator
+        final String op = ";,:=,+,-,*,/,div,mod,=,<>,>,<,<=,>=,and,or,xor,not,shl,shr,<<,>>,include,exclude,in,@,^";
+        String[] tokens = op.split("[,\\ ]");
+        for (String token : tokens) {
+            int count1 = 0, fromIndex1 = 0;
+            while ((fromIndex1 = inputText.indexOf(token, fromIndex1)) != -1) {
+                count1++;
+                fromIndex1++;
+            }
+
+            if (count1 > 0) {
+                penampungTextOperator += "Operator " + token + " berjumlah: " + count1 + "\n";
+            }
+
         }
-        if(count1>0){
-            penampungTextOperator += "Operator ; berjumlah: " + count1 + "\n";
+
+    }
+
+    private void CountIdentifier() {
+        String inputText = ta_inputText.getText();
+        //hitung dientifier
+        final String op = "and,array,asm,begin,break,case,const,constructor,continue,destructor,div,do,downto,else,end,false,file,for,function,goto,if,implementation,in,inline,interface,label,mod,nil,not,object,of,on,operator,or,packed,procedure,program,record,repeat,set,shl,shr,string,then,to,true,type,unit,until,uses,var,while,with,xor";
+        String[] tokens = op.split("[,\\ ]");
+        for (String token : tokens) {
+            int count1 = 0, fromIndex1 = 0;
+            while ((fromIndex1 = inputText.indexOf(token, fromIndex1)) != -1) {
+                count1++;
+                fromIndex1++;
+            }
+
+            if (count1 > 0) {
+                penampungTextIdentifier += "Identifier " + token + " berjumlah: " + count1 + "\n";
+            }
+
         }
-        
-        //hitung :=
-        String titikduasamadengan = ":=";
-        int count2 = 0, fromIndex2 =0;
-        while ((fromIndex2 = inputText.indexOf(titikduasamadengan, fromIndex2)) != -1) {
-            count2++;
-            fromIndex2++;
-        }
-        if(count2>0){
-        penampungTextOperator += "Operator := berjumlah: " + count2 + "\n";
-        }
-        //hitung -
-        String minus = "-";
-        int count3 = 0, fromIndex3 =0;
-        while ((fromIndex3 = inputText.indexOf(minus, fromIndex3)) != -1) {
-            count3++;
-            fromIndex3++;
-        }
-        if(count3>0){
-        penampungTextOperator += "Operator - berjumlah: " + count3 + "\n";
-        }
-        //hitung +
-        String plus = "+";
-        int count4 = 0, fromIndex4 =0;
-        while ((fromIndex4 = inputText.indexOf(plus, fromIndex4)) != -1) {
-            count4++;
-            fromIndex4++;
-        }
-        if(count4>0){
-        penampungTextOperator += "Operator + berjumlah: " + count4 + "\n";
-        }
-        //hitung *
-        String kali = "*";
-        int count5 = 0, fromIndex5 =0;
-        while ((fromIndex5 = inputText.indexOf(kali, fromIndex5)) != -1) {
-            count5++;
-            fromIndex5++;
-        }
-        if(count5>0){
-        penampungTextOperator += "Operator * berjumlah: " + count5 + "\n";
-        }
-        
-        
-        
-        
-        
     }
     private void bt_scanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_scanActionPerformed
-        countOperator();
+        CountOperator();
+        CountIdentifier();
         ta_outputOp.setText(penampungTextOperator);
+        ta_outputidentifier.setText(penampungTextIdentifier);
 //            int jumlah = 0;
 //            int indeks;
 //            indeks = teks.indexOf(inputText);
@@ -246,7 +247,7 @@ public String penampungTextOperator = "";
         ta_outputOp.setText(null);
         ta_inputText.setText(null);
         ta_outputTextVar.setText(null);
-        
+
     }//GEN-LAST:event_bt_clearActionPerformed
 
     /**
@@ -290,12 +291,15 @@ public String penampungTextOperator = "";
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea ta_inputText;
     private javax.swing.JTextArea ta_outputOp;
     private javax.swing.JTextArea ta_outputTextVar;
+    private javax.swing.JTextArea ta_outputidentifier;
     // End of variables declaration//GEN-END:variables
 }
