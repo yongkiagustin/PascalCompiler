@@ -177,7 +177,7 @@ public String penampungTextOperator = "";
 
     private void CountOperator() {
         String inputText = ta_inputText.getText();
-        StringTokenizer st = new StringTokenizer(";,:=,+,-,*,/,div,mod, =,<>,>,<,<=,>=,and,or,xor,not,shl,shr,<<,>>,include,exclude,in,@,^", ",");
+        StringTokenizer st = new StringTokenizer(";,:=,+,-,*,/, div , mod , =,<>,>,<,<=,>=, and , or , xor , not ,shl,shr,<<,>>,include,exclude,in,@,^", ",");
         int c = st.countTokens();
 
         for (int i = 1; i <= c; i++) {
