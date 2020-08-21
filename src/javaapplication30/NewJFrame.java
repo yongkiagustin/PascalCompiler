@@ -177,22 +177,40 @@ public String penampungTextOperator = "";
 
     private void CountOperator() {
         String inputText = ta_inputText.getText();
-        //hitung operator
-        final String op = ";,:=,+,-,*,/,div,mod,=,<>,>,<,<=,>=,and,or,xor,not,shl,shr,<<,>>,include,exclude,in,@,^";
-        String[] tokens = op.split("[,\\ ]");
-        for (String token : tokens) {
-            int count1 = 0, fromIndex1 = 0;
-            while ((fromIndex1 = inputText.indexOf(token, fromIndex1)) != -1) {
-                count1++;
-                fromIndex1++;
-            }
+        StringTokenizer st = new StringTokenizer(";,:=,+,-,*,/,div,mod, =,<>,>,<,<=,>=,and,or,xor,not,shl,shr,<<,>>,include,exclude,in,@,^", ",");
+        int c = st.countTokens();
 
-            if (count1 > 0) {
-                penampungTextOperator += "Operator " + token + " berjumlah: " + count1 + "\n";
+        for (int i = 1; i <= c; i++) {
+            while (st.hasMoreTokens()) {
+                String s = st.nextToken();
+                int count1 = 0, fromIndex1 = 0;
+                while ((fromIndex1 = inputText.indexOf(s, fromIndex1)) != -1) {
+                    count1++;
+                    fromIndex1++;
+                }
+
+                if (count1 > 0) {
+                    penampungTextOperator += "Operator " + s + " berjumlah: " + count1 + "\n";
+                }
             }
 
         }
 
+        //hitung operator
+//        final String op = ";,:=,+,-,*,/,div,mod,=,<>,>,<,<=,>=,and,or,xor,not,shl,shr,<<,>>,include,exclude,in,@,^";
+//        String[] tokens = op.split("[,\\ ]");
+//        for (String token : tokens) {
+//            int count1 = 0, fromIndex1 = 0;
+//            while ((fromIndex1 = inputText.indexOf(token, fromIndex1)) != -1) {
+//                count1++;
+//                fromIndex1++;
+//            }
+//
+//            if (count1 > 0) {
+//                penampungTextOperator += "Operator " + token + " berjumlah: " + count1 + "\n";
+//            }
+//
+//        }
     }
 
     private void CountIdentifier() {
